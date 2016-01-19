@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="page col-xs-12">
+            <form action="{% url 'settings:list' %}" method="post">
+                {% csrf_token %}
+                <div class="well page active">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center">編集</th>
+                                <th>ノートブック</th>
+                                <th>タイトル</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for note in list %}
+                            <tr>
+                                <td class="text-center"><button type="submit" value="{{ note.guid }}" name="edit" class="btn btn-primary btn-sm">編集</button></td>
+                                <td>{{ note.notebook }}</td>
+                                <td>{{ note.title }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

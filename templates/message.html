@@ -1,0 +1,23 @@
+{% if messages %}
+<div class="row">
+  <div class="col-xs-12 text-center">
+    {% for message in messages %}
+    <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}danger{% endif %} alert-dismissable" style="margin-top: 20px;">
+      {% if message.tags %}
+        {% if message.tags == "danger" %}
+        <span class="glyphicon glyphicon-ban-circle"></span>
+        {% elif message.tags == "success" %}
+        <span class="glyphicon glyphicon-ok-circle"></span>
+        {% elif message.tags == "warning" %}
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        {% elif message.tags == "info" %}
+        <span class="glyphicon glyphicon-info-sign"></span>
+        {% endif %}
+      {% endif %}
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
+      <b>{{ message }}</b>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

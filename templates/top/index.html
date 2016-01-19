@@ -1,0 +1,18 @@
+{% extends "base_no_header.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="well">
+        <h1>DevDoc</h1>
+        <p>Markdownで記述したドキュメントをEvernoteに保存するアプリケーションです。</p>
+        <p>利用を開始する場合は下のEvernoteのロゴをクリックしてください。</p>
+        <p>EvernoteにDevDocからのアクセスを承認するとDevDocが使えるようになります。</p>
+        <a href="{% url 'home:index' %}"><img src="{% static 'images/evernote_logo_4c-lrg.png' %}" alt="Evernote" /></a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

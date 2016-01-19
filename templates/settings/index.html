@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="page col-xs-12">
+      <form class="form-horizontal" action="{% url 'settings:index' %}" method="post">
+        {% csrf_token %}
+        <div class="well page active">
+          <fieldset>
+            <legend>ユーザ設定</legend>
+            <div class="form-group">
+              <label class="col-xs-2 control-label" for="id_{{ form.notebook_guid.name }}">{{ form.notebook_guid.label }}</label>
+              <div class="col-xs-4">
+                {{ form.notebook_guid }}
+              </div>
+            </div>
+            <button type="submit" name="setting" class="btn btn-success">設定</button>
+          </fieldset>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

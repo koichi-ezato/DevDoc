@@ -1,0 +1,15 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  {% include "head.html" %}
+  <body style="padding-top:67px;">
+    {% include "script.html" %}
+    {% include "header.html" %}
+    {% include "message.html" %}
+    {% block content %}{% endblock %}
+    <!-- site ends -->
+    <footer class="container-fluid">
+      <small>&copy; 2015 OKINAWA SOFTWARE CENTER CO.,LTD</small>
+    </footer>
+  </body>
+</html>

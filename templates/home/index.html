@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="pages col-xs-12">
+      <div class="well page active">
+        <h1>DevDocへようこそ</h1>
+        <h3>DevDocはEvernoteにMarkdown記法で入力した内容を、Evernoteにリッチテキストで保存するためのアプリケーションです。</h3>
+        <p>使いかた</p>
+        <ol>
+          <li>画面上部の<i class="mdi-action-book"></i>をクリックするとMarkdownで作成したノートの保存先のノートブックを選択できます。</li>
+          <li>画面上部の<i class="mdi-action-description"></i>をクリックするとノートの一覧を確認できます。</li>
+          <li>画面上部の<i class="mdi-content-add-box"></i>をクリックするとノートの新しく作成します。</li>
+          <li>画面上部の<i class="mdi-file-cloud-done"></i>をクリックするとノートを保存できます。</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

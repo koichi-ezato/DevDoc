@@ -1,0 +1,15 @@
+{% extends "base_no_header.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="well">
+        <h1>DevDoc</h1>
+        <a href="{% url 'oauth:logout' %}" class="btn btn-link"><i class="mdi-action-exit-to-app"></i> もう一度ログインし直してください</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

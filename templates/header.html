@@ -1,0 +1,23 @@
+{% load staticfiles %}
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{% url 'home:index' %}">DevDoc</a>
+    </div>
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
+        <ul class="nav navbar-nav">
+            <li><a href="{% url 'settings:index' %}" data-toggle="tooltip" data-placement="bottom" title="Notebook"><i class="mdi-action-book"></i></a></li>
+            <li><a href="{% url 'settings:list' %}" data-toggle="tooltip" data-placement="bottom" title="Note"><i class="mdi-action-description"></i></a></li>
+            <li><a href="{% url 'editor:add' %}" data-toggle="tooltip" data-placement="right" title="add"><i class="mdi-content-add-box"></i></a></li>
+            <li><a href="javascript:void(0)" data-toggle="tooltip" data-placement="right" title="save" id="save"><i class="mdi-file-cloud-done"></i></a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url 'top:index' %}" data-toggle="tooltip" data-placement="bottom" title="Top"><i class="mdi-action-home"></i></a></li>
+            <li><a href="{% url 'oauth:logout' %}" data-toggle="tooltip" data-placement="bottom" title="Logout"><i class="mdi-action-exit-to-app"></i></a></li>
+        </ul>
+    </div>
+</div>

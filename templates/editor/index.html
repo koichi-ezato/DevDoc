@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<style media="screen">
+  .editor {
+    padding: 0;
+  }
+  #editor {
+    font-size: 16px;
+  }
+  .viewer {
+    padding: 0;
+    color: #2c3f51;
+  }
+  #viewer {
+    overflow-y: auto;
+    background: white;
+    padding: 10px;
+  }
+  #viewer h1 {
+    font-weight: bold;
+    font-size: 2.6em;
+  }
+  #viewer h2 {
+    font-weight: bold;
+    font-size: 2.15em;
+  }
+  #viewer h3 {
+    font-weight: bold;
+    font-size: 1.7em;
+  }
+  #viewer h4 {
+    font-weight: bold;
+    font-size: 1.25em;
+  }
+  #viewer h5 {
+    font-weight: bold;
+    font-size: 1em;
+  }
+  #viewer h6 {
+    font-weight: bold;
+    font-size: .85em;
+  }
+  #viewer strong {
+    font-weight: bold;
+  }
+  #viewer em {
+    font-style: italic;
+  }
+  #viewer hr {
+    border-top: 1px solid rgba(102,128,153,0.1);
+  }
+  #viewer blockquote {
+    border-left-width:10px;
+    background-color:rgba(102,128,153,0.05);
+    border-top-right-radius:5px;
+    border-bottom-right-radius:5px;padding:15px 20px
+  }
+  #viewer blockquote p {
+    margin-bottom:1.1em;font-size:1em;line-height:1.45
+  }
+  #viewer blockquote ul:last-child,blockquote ol:last-child {
+    margin-bottom:0
+  }
+  #viewer p {
+    margin: 0 0 1.1em;
+  }
+  #viewer pre {
+    border: 0;
+    margin: 0 0 1.1em;
+    font-family: "Source Code Pro", monospace;
+    font-size: .9em;
+    padding: 0;
+    border-radius: 0px;
+  }
+  #viewer table {
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    max-width: 100%;
+    background-color: transparent;
+  }
+  #viewer table th, table td, table thead:first-child tr:first-child th {
+    padding: .5em;
+    border: 1px solid #ddd;
+  }
+  #viewer table thead th {
+    vertical-align: bottom;
+  }
+  #viewer table th {
+    font-weight: bold;
+  }
+  #viewer th {
+    text-align: left;
+  }
+</style>
+<div class="container-fluid">
+  <form class="form-horizontal" action="{% url 'editor:index' %}" method="post">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-xs-6 editor">
+        <pre id="editor"></pre>
+      </div>
+      <div class="col-xs-6 viewer">
+        <div id="viewer"></div>
+      </div>
+    </div>
+    <input type="hidden" name="title" />
+    <textarea class="hidden" name="body"></textarea>
+    <textarea class="hidden" name="resource">{{ resource }}</textarea>
+  </form>
+</div>
+<script>
+$(function() {
+  var editor = ace.edit('editor');
+  editor.$blockScrolling = Infinity;
+  editor.setOptions({
+    enableBasicAutocompletion: true,
+    enableSnippets: true,
+    enableLiveAutocompletion: true,
+  });
+  editor.setTheme('ace/theme/terminal')
+  editor.getSession().setMode('ace/mode/markdown');
+  editor.setValue($('textarea[name=resource]').val())
+  editor.focus();
+  editor.gotoLine(1);
+
+  var viewer = $('#viewer');
+  viewer.html(marked(editor.getValue()));
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+  $('#editor').css('height',$('#viewer').css('height'));
+
+  editor.getSession().on('change', function(e) {
+    viewer.html(marked(editor.getValue()));
+    $('pre code').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+
+  editor.getSession().on('changeScrollTop', function(scroll) {
+    viewer.scrollTop(scroll);
+  });
+
+  $('#save').on('click', function() {
+    $('input[name=title]').val(viewer.children('h1:first-child').text());
+    var body = $('#viewer').html();
+    body = body.replace(/ id=".*"/g,'');
+    body = body.replace(/<hr>/g,'<hr/>');
+    $('textarea[name=body]').val(body);
+    $('textarea[name=resource]').val(editor.getValue());
+    $('form').submit();
+  });
+
+  function adjustHeight() {
+    var hW = $(window).height();
+    var hH = $('div.navbar').height();
+    var hF = $('footer').height();
+
+    var adjust = 20;
+
+    var hC = hW - (hH + hF + adjust);
+    $('#editor').css('height', hC);
+    $('#viewer').css('height', hC);
+  }
+
+  adjustHeight();
+
+  $(window).on('resize', function() {
+    adjustHeight();
+  });
+});
+</script>
+{% endblock %}
