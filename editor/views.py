@@ -311,7 +311,10 @@ def make_enml(guid=None, soup=None, resource=None):
     note_tag_end = u"</en-note>"
     if guid is not None:
         # guidがあればノートにつけるラベルを生成する
-        href = settings.LINK_EVERNOTE_DEV
+        if settings.DEBUG:
+            href = settings.LINK_EVERNOTE_DEV
+        else:
+            href = settings.LINK_EVERNOTE_PRODUCT
         href += guid
         label = u"<del style='position:relative;display:block;'>"
         label += u"<a style='position: absolute;color: #FFF;" \
